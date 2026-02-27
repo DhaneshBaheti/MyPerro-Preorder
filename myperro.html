@@ -295,7 +295,7 @@
   .map-img {
     width: 100%; height: 100%;
     object-fit: cover;
-    filter: brightness(0.50) saturate(0.25) contrast(1.15);
+    filter: brightness(0.18) saturate(0.25) contrast(1.15);
     display: block;
   }
   .map-vignette {
@@ -354,17 +354,19 @@
   #perks { background: var(--canvas); isolation: isolate; }
   .perks-layout {
     margin-top: 64px;
-    display: grid; grid-template-columns: 1.4fr 1fr; gap: 24px;
+    display: flex; flex-direction: column; gap: 20px;
   }
   .pricing-card {
-    background: var(--e1);
+    background: linear-gradient(135deg, var(--e1) 0%, rgba(24,24,27,0.6) 100%);
     border: 1px solid var(--glow-border);
     border-radius: 16px;
     padding: 48px;
     position: relative; overflow: hidden;
-    background: linear-gradient(135deg, var(--e1) 0%, rgba(24,24,27,0.6) 100%);
-    grid-row: span 2;
   }
+  .pricing-card-top {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start;
+  }
+  .pricing-card-left { }
   .pricing-card::before {
     content: ''; position: absolute; top: -60px; right: -60px;
     width: 240px; height: 240px; border-radius: 50%;
@@ -392,7 +394,7 @@
   .pricing-card .pricing-desc {
     font-size: 14px; line-height: 1.7; color: var(--text-secondary); margin-bottom: 32px;
   }
-  .perk-list { display: flex; flex-direction: column; gap: 14px; }
+  .perk-list { display: flex; flex-direction: column; gap: 11px; }
   .perk-item {
     display: flex; align-items: flex-start; gap: 14px; font-size: 14px; color: var(--text-body);
   }
@@ -408,7 +410,7 @@
   }
   .perk-card {
     background: var(--e2); border: 1px solid var(--border);
-    border-radius: 12px; padding: 32px;
+    border-radius: 12px; padding: 22px;
     transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), border-color 0.3s, box-shadow 0.3s;
   }
   .perk-card:hover {
@@ -426,7 +428,7 @@
     font-family: var(--font-mono); font-size: 10px; color: var(--accent);
     letter-spacing: 0.1em; margin-bottom: 16px; display: block;
   }
-  .right-perks { display: flex; flex-direction: column; gap: 24px; }
+  .right-perks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
 
   /* ── TRACTION ── */
   #traction { background: var(--e1); }
@@ -642,8 +644,8 @@
     .hero-inner { grid-template-columns: 1fr; position: relative; }
     .depth-dog-wrap {
       position: fixed; right: 0; top: 0;
-      width: 45vw; height: 100vh;
-      opacity: 0.3; pointer-events: none;
+      width: 44vw; height: 100vh;
+      opacity: 0.28; pointer-events: none;
     }
     .depth-halo { width: 400px; height: 400px; right: -60px; opacity: 0.6; }
     .depth-grid { display: none; }
@@ -651,8 +653,8 @@
     .hero-content { max-width: 100%; position: relative; z-index: 10; }
     .collar-grid { grid-template-columns: 1fr; }
     .collar-model { max-width: 400px; margin: 0 auto; }
-    .perks-layout { grid-template-columns: 1fr; }
-    .pricing-card { grid-row: auto; }
+    .pricing-card-top { grid-template-columns: 1fr; gap: 24px; }
+    .right-perks { grid-template-columns: repeat(2, 1fr); }
     .slots-grid { grid-template-columns: repeat(5, 1fr); }
     .traction-header { grid-template-columns: 1fr; gap: 24px; }
     .stats-grid { grid-template-columns: repeat(3, 1fr); }
@@ -668,8 +670,7 @@
     .hero-headline { font-size: 44px; letter-spacing: -2px; }
     .hero-headline .always { font-size: 54px; }
     .hero-sub { font-size: 14px; }
-    .depth-dog-wrap { width: 50vw; opacity: 0.55; right: 0; }
-    .depth-dog-img { mix-blend-mode: normal; }
+    .depth-dog-wrap { position: fixed; right: 0; top: 0; width: 48vw; height: 100vh; opacity: 0.22; }
     .depth-halo { display: none; }
     .status-pill { display: none; }
     .stats-grid { grid-template-columns: repeat(3, 1fr); }
@@ -677,10 +678,10 @@
     .footer-inner { flex-direction: column; gap: 14px; text-align: center; }
     .footer-links { justify-content: center; }
     .deposit-card { min-width: auto; padding: 28px 24px; width: 100%; max-width: 400px; }
-    .perks-layout { gap: 16px; }
-    .right-perks { gap: 16px; }
-    .perk-card { padding: 24px; }
-    .pricing-card { padding: 32px 28px; }
+    .perks-layout { gap: 14px; }
+    .right-perks { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .perk-card { padding: 18px; }
+    .pricing-card { padding: 28px 24px; }
     .process-item { gap: 28px; }
     .collar-specs { margin-top: 20px; }
     .traction-header { margin-bottom: 48px; }
@@ -701,15 +702,10 @@
     .hero-label { font-size: 9px; }
     .btn-primary { font-size: 13px; padding: 14px 24px; }
     .depth-dog-wrap {
-      width: 55vw; height: 100vh;
-      top: 0; bottom: auto; right: 0; left: auto;
-      opacity: 0.55;
-    }
-    .depth-dog-img {
-      mix-blend-mode: normal;
-      object-position: right center;
-      mask-image: linear-gradient(to left, black 40%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to left, black 40%, transparent 100%);
+      position: fixed; right: 0; top: 0;
+      width: 52vw; height: 100vh;
+      left: auto; bottom: auto;
+      opacity: 0.2;
     }
     .section-headline { font-size: 34px; letter-spacing: -1.5px; }
     .section-tag { font-size: 9px; }
@@ -732,7 +728,12 @@
     .cta-headline { font-size: 34px; letter-spacing: -1.5px; }
     .footer-inner { padding: 0; }
     footer { padding: 36px 16px; }
-    .perks-layout { grid-template-columns: 1fr; gap: 14px; }
+    .perks-layout { gap: 12px; }
+    .pricing-card { padding: 22px 18px; }
+    .right-perks { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .perk-card { padding: 14px; }
+    .perk-card h4 { font-size: 16px; }
+    .perk-card p { font-size: 12px; }
   }
 
   /* ── FAQ ── */
@@ -917,20 +918,24 @@
     display: flex; align-items: center; justify-content: center;
     opacity: 0; pointer-events: none;
     transition: opacity 0.35s ease;
-    padding: 20px;
+    padding: 16px;
+    overflow-y: auto;
   }
   .card-overlay.open { opacity: 1; pointer-events: auto; }
   .card-wrapper {
-    display: flex; flex-direction: column; align-items: center; gap: 28px;
+    display: flex; flex-direction: column; align-items: center; gap: 24px;
     transform: translateY(20px);
     transition: transform 0.45s cubic-bezier(0.22,1,0.36,1);
+    width: 100%; max-width: 400px;
+    margin: auto;
   }
   .card-overlay.open .card-wrapper { transform: translateY(0); }
   .v-card {
-    width: 360px; aspect-ratio: 1.586;
+    width: 100%;
+    aspect-ratio: 1.586;
     background: linear-gradient(135deg, #0f0f11 0%, #1a1a1e 50%, #0f0f11 100%);
     border: 1px solid rgba(232,97,26,0.3);
-    border-radius: 16px; padding: 28px;
+    border-radius: 16px; padding: 24px;
     position: relative; overflow: hidden;
     box-shadow: 0 0 80px rgba(232,97,26,0.18), 0 40px 80px rgba(0,0,0,0.6);
   }
@@ -1008,7 +1013,7 @@
   }
   .vc-city strong { color: var(--accent); display: block; font-size: 11px; }
   .card-actions {
-    display: flex; flex-direction: column; align-items: center; gap: 12px; width: 360px;
+    display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%;
   }
   .card-actions-title {
     font-family: var(--font-mono); font-size: 10px; color: var(--text-muted);
@@ -1024,6 +1029,7 @@
   .share-btn.wa { background: #25D366; color: #fff; }
   .share-btn.tw { background: #000; color: #fff; border: 1px solid #333; }
   .share-btn.cp { background: var(--e3); color: var(--text-body); border: 1px solid var(--border); }
+  .share-btn.dl { background: var(--e2); color: var(--accent); border: 1px solid var(--glow-border); }
   .card-close {
     font-family: var(--font-mono); font-size: 10px; color: var(--text-muted);
     background: none; border: none; cursor: pointer; letter-spacing: 0.08em;
@@ -1042,9 +1048,12 @@
     .f-2 { grid-template-columns: 1fr; }
     .modal-form { padding: 20px; }
     .modal-header { padding: 24px 20px 0; }
-    .v-card { width: 300px; }
-    .vc-number { font-size: 30px; }
-    .card-actions { width: 300px; }
+    .v-card { padding: 18px; }
+    .vc-number { font-size: 28px; }
+    .vc-logo { font-size: 15px; }
+    .vc-avatar, .vc-avatar-img { width: 44px; height: 44px; }
+    .vc-mid { gap: 12px; margin-bottom: 14px; }
+    .vc-top { margin-bottom: 14px; }
   }
 
   /* ── FOUNDER NOTE ── */
@@ -1123,6 +1132,7 @@
     .example-card { width: 100%; max-width: 340px; }
   }
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
 
@@ -1135,7 +1145,7 @@
 
 <!-- ── NAV ── -->
 <nav id="nav">
-  <a href="#"><img src="group.png" alt="MyPerro" style="height:32px;width:auto;display:block;"></a>
+  <a href="#"><a href="#" class="nav-logo">My<span>Perro</span></a></a>
   <div class="nav-links">
     <a href="#collar">Product</a>
     <a href="#perks">Perks</a>
@@ -1279,20 +1289,24 @@
     <h2 class="section-headline reveal reveal-delay-1">Not a discount.<br>An invitation.</h2>
     <div class="perks-layout">
       <div class="pricing-card reveal reveal-delay-2">
-        <span class="old-price">₹8,999 RETAIL</span>
-        <span class="new-price"><sup>₹</sup>5,999</span>
-        <span class="savings">You save ₹3,000 — forever.</span>
-        <p class="pricing-desc">Founding members lock in the lowest price MyPerro will ever be offered. As the product evolves, your price stays unchanged.</p>
-        <div class="perk-list">
-          <div class="perk-item"><div class="perk-check"></div><span>Founding member price locked permanently</span></div>
-          <div class="perk-item"><div class="perk-check"></div><span>Priority dispatch — first collars leave our workshop first</span></div>
-          <div class="perk-item"><div class="perk-check"></div><span>6 months subscription free — worth ₹1,500–1,800</span></div>
-          <div class="perk-item"><div class="perk-check"></div><span>Pet's name laser-engraved + accent color of your choice</span></div>
-          <div class="perk-item"><div class="perk-check"></div><span>Exclusive mystery merch box — founding edition only</span></div>
-          <div class="perk-item"><div class="perk-check"></div><span>Your dog's photo on the Founding Wall — forever</span></div>
-          <div class="perk-item"><div class="perk-check"></div><span>Beta tester status — shape every feature first</span></div>
-          <div class="perk-item"><div class="perk-check"></div><span>Direct founder access via private WhatsApp group</span></div>
-          <div class="perk-item"><div class="perk-check"></div><span>Founding Pack badge on your dog's app profile — #OG</span></div>
+        <div class="pricing-card-top">
+          <div class="pricing-card-left">
+            <span class="old-price">₹8,999 RETAIL</span>
+            <span class="new-price"><sup>₹</sup>5,999</span>
+            <span class="savings">You save ₹3,000 — forever.</span>
+            <p class="pricing-desc">Founding members lock in the lowest price MyPerro will ever be offered. As the product evolves, your price stays unchanged.</p>
+          </div>
+          <div class="perk-list">
+            <div class="perk-item"><div class="perk-check"></div><span>Founding member price locked permanently</span></div>
+            <div class="perk-item"><div class="perk-check"></div><span>Priority dispatch — first collars leave our workshop first</span></div>
+            <div class="perk-item"><div class="perk-check"></div><span>6 months subscription free — worth ₹1,500–1,800</span></div>
+            <div class="perk-item"><div class="perk-check"></div><span>Pet's name laser-engraved + accent color of your choice</span></div>
+            <div class="perk-item"><div class="perk-check"></div><span>Exclusive mystery merch box — founding edition only</span></div>
+            <div class="perk-item"><div class="perk-check"></div><span>Your dog's photo on the Founding Wall — forever</span></div>
+            <div class="perk-item"><div class="perk-check"></div><span>Beta tester status — shape every feature first</span></div>
+            <div class="perk-item"><div class="perk-check"></div><span>Direct founder access via private WhatsApp group</span></div>
+            <div class="perk-item"><div class="perk-check"></div><span>Founding Pack badge on your dog's app profile — #OG</span></div>
+          </div>
         </div>
       </div>
       <div class="right-perks">
@@ -1392,7 +1406,7 @@
     <span class="section-tag reveal" style="display:block;text-align:center;">004.5 — Membership</span>
     <h2 class="section-headline reveal reveal-delay-1">Your card,<br><em>issued on join.</em></h2>
     <p class="card-preview-sub reveal reveal-delay-2">Every Founding Pack member gets a shareable digital membership card — with their dog's photo, their spot number, and their locked-in perks.</p>
-    <div class="reveal reveal-delay-3">
+    <div class="reveal reveal-delay-3" style="display:flex;justify-content:center;">
       <div class="example-card">
         <div class="vc-top">
           <span class="vc-logo">My<span>Perro</span></span>
@@ -1569,7 +1583,7 @@
 <!-- ── FOOTER ── -->
 <footer>
   <div class="footer-inner">
-    <img src="group.png" alt="MyPerro" style="height:28px;width:auto;display:block;">
+    <span class="footer-logo">My<span>Perro</span></span>
     <span class="footer-copy">© 2026 MyPerro. myperro.in</span>
     <div class="footer-links">
       <a href="#">Privacy</a>
@@ -1864,17 +1878,52 @@
     dogPhotoDataUrl = null;
   }
 
-  // ── SHARE
-  function shareWA() {
+  // ── SHARE AS IMAGE
+  async function captureCard() {
+    const card = document.getElementById('vCard');
+    const canvas = await html2canvas(card, {
+      backgroundColor: '#0f0f11',
+      scale: 2,
+      useCORS: true,
+      allowTaint: true,
+      logging: false
+    });
+    return new Promise(resolve => canvas.toBlob(blob => resolve(blob), 'image/png', 0.95));
+  }
+
+  async function shareWA() {
     const pet = document.getElementById('vcDog').textContent.split("'")[0];
     const num = document.getElementById('vcNum').textContent;
-    window.open('https://wa.me/?text=' + encodeURIComponent('🐾 Just secured Founding Pack Spot #' + num + ' for ' + pet + ' on MyPerro — India\'s first AI GPS dog collar! Only ' + (PACK_TOTAL - parseInt(num)) + ' spots left: https://myperro.in'), '_blank');
+    const text = '🐾 Just secured Founding Pack Spot #' + num + ' for ' + pet + ' on MyPerro — India\'s first GPS dog collar! https://myperro.in';
+    
+    try {
+      const blob = await captureCard();
+      const file = new File([blob], 'myperro-founding-member.png', { type: 'image/png' });
+      if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], text });
+        return;
+      }
+    } catch(e) { console.log('Image share failed, falling back', e); }
+    // Fallback: open WhatsApp with text
+    window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
   }
-  function shareTW() {
+
+  async function shareTW() {
     const pet = document.getElementById('vcDog').textContent.split("'")[0];
     const num = document.getElementById('vcNum').textContent;
-    window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent('Just secured Founding Pack Spot #' + num + ' for ' + pet + ' on @MyPerroIn 🐾 India\'s first AI GPS dog collar — only ' + (PACK_TOTAL - parseInt(num)) + ' spots left! https://myperro.in'), '_blank');
+    window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent('Just secured Founding Pack Spot #' + num + ' for ' + pet + ' on @MyPerroIn 🐾 India\'s first GPS dog collar — only ' + (PACK_TOTAL - parseInt(num)) + ' spots left! https://myperro.in'), '_blank');
   }
+
+  async function shareDownload() {
+    try {
+      const blob = await captureCard();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'myperro-founding-member.png';
+      a.click(); URL.revokeObjectURL(url);
+    } catch(e) { alert('Download failed. Try a different browser.'); }
+  }
+
   function shareCopy() {
     navigator.clipboard.writeText('https://myperro.in').then(() => alert('Link copied 🐾'));
   }
@@ -1971,11 +2020,14 @@
       </div>
     </div>
     <div class="card-actions">
-      <span class="card-actions-title">Share your founding membership</span>
+      <span class="card-actions-title">Share or save your card</span>
       <div class="card-share-btns">
-        <button class="share-btn wa" onclick="shareWA()">WhatsApp</button>
+        <button class="share-btn wa" onclick="shareWA()" id="waBtn">📲 Share Image</button>
         <button class="share-btn tw" onclick="shareTW()">X / Twitter</button>
-        <button class="share-btn cp" onclick="shareCopy()">Copy Link</button>
+      </div>
+      <div class="card-share-btns" style="margin-top:0">
+        <button class="share-btn dl" onclick="shareDownload()">⬇ Save Card</button>
+        <button class="share-btn cp" onclick="shareCopy()">🔗 Copy Link</button>
       </div>
       <button class="card-close" onclick="closeCard()">← Back to MyPerro</button>
     </div>
