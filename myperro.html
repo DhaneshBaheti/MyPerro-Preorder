@@ -130,11 +130,11 @@
   }
   .depth-dog-img {
     width: 100%; height: 100%; object-fit: contain;
-    object-position: right center;
+    object-position: right top;
     mix-blend-mode: luminosity;
-    filter: contrast(1.05) brightness(0.88);
-    mask-image: linear-gradient(to left, black 35%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to left, black 35%, transparent 100%);
+    filter: contrast(1.08) brightness(1.05);
+    mask-image: linear-gradient(to left, black 40%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to left, black 40%, transparent 100%);
   }
   .depth-dog-light { display: none; }
   .depth-dots { display: none; }
@@ -645,7 +645,7 @@
     .depth-dog-wrap {
       position: fixed; right: 0; top: 0;
       width: 44vw; height: 100vh;
-      opacity: 0.28; pointer-events: none;
+      opacity: 0.45; pointer-events: none;
     }
     .depth-halo { width: 400px; height: 400px; right: -60px; opacity: 0.6; }
     .depth-grid { display: none; }
@@ -703,9 +703,16 @@
     .btn-primary { font-size: 13px; padding: 14px 24px; }
     .depth-dog-wrap {
       position: fixed; right: 0; top: 0;
-      width: 52vw; height: 100vh;
+      width: 55vw; height: 100vh;
       left: auto; bottom: auto;
-      opacity: 0.2;
+      opacity: 0.6;
+    }
+    .depth-dog-img {
+      mix-blend-mode: normal;
+      object-position: right top;
+      filter: contrast(1.1) brightness(1.2);
+      mask-image: linear-gradient(to left, black 30%, transparent 90%);
+      -webkit-mask-image: linear-gradient(to left, black 30%, transparent 90%);
     }
     .section-headline { font-size: 34px; letter-spacing: -1.5px; }
     .section-tag { font-size: 9px; }
@@ -915,27 +922,29 @@
     position: fixed; inset: 0; z-index: 950;
     background: rgba(0,0,0,0.92);
     backdrop-filter: blur(20px);
-    display: flex; align-items: center; justify-content: center;
+    display: flex; align-items: flex-start; justify-content: center;
     opacity: 0; pointer-events: none;
     transition: opacity 0.35s ease;
-    padding: 16px;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
   .card-overlay.open { opacity: 1; pointer-events: auto; }
   .card-wrapper {
-    display: flex; flex-direction: column; align-items: center; gap: 24px;
+    display: flex; flex-direction: column; align-items: center; gap: 20px;
     transform: translateY(20px);
     transition: transform 0.45s cubic-bezier(0.22,1,0.36,1);
-    width: 100%; max-width: 400px;
-    margin: auto;
+    width: 100%; max-width: 480px;
+    padding: 60px 16px 40px;
+    margin: 0 auto;
+    min-height: 100%;
+    box-sizing: border-box;
   }
   .card-overlay.open .card-wrapper { transform: translateY(0); }
   .v-card {
     width: 100%;
-    aspect-ratio: 1.586;
     background: linear-gradient(135deg, #0f0f11 0%, #1a1a1e 50%, #0f0f11 100%);
     border: 1px solid rgba(232,97,26,0.3);
-    border-radius: 16px; padding: 24px;
+    border-radius: 16px; padding: 28px;
     position: relative; overflow: hidden;
     box-shadow: 0 0 80px rgba(232,97,26,0.18), 0 40px 80px rgba(0,0,0,0.6);
   }
@@ -1013,13 +1022,14 @@
   }
   .vc-city strong { color: var(--accent); display: block; font-size: 11px; }
   .card-actions {
-    display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%;
+    display: flex; flex-direction: column; align-items: center; gap: 12px;
+    width: 100%;
   }
   .card-actions-title {
     font-family: var(--font-mono); font-size: 10px; color: var(--text-muted);
     letter-spacing: 0.12em; text-transform: uppercase;
   }
-  .card-share-btns { display: flex; gap: 10px; width: 100%; }
+  .card-share-btns { display: flex; gap: 10px; width: 100%; flex-wrap: wrap; }
   .share-btn {
     flex: 1; padding: 12px; border-radius: 8px; border: none; cursor: pointer;
     font-family: var(--font-body); font-size: 12px; font-weight: 500;
@@ -1048,12 +1058,9 @@
     .f-2 { grid-template-columns: 1fr; }
     .modal-form { padding: 20px; }
     .modal-header { padding: 24px 20px 0; }
-    .v-card { padding: 18px; }
-    .vc-number { font-size: 28px; }
-    .vc-logo { font-size: 15px; }
-    .vc-avatar, .vc-avatar-img { width: 44px; height: 44px; }
-    .vc-mid { gap: 12px; margin-bottom: 14px; }
-    .vc-top { margin-bottom: 14px; }
+    .v-card { padding: 20px; }
+    .vc-number { font-size: 32px; }
+    .vc-avatar, .vc-avatar-img { width: 48px; height: 48px; }
   }
 
   /* ── FOUNDER NOTE ── */
@@ -1145,7 +1152,7 @@
 
 <!-- ── NAV ── -->
 <nav id="nav">
-  <a href="#"><a href="#" class="nav-logo">My<span>Perro</span></a></a>
+  <a href="#"><a href="#"><img src="group.png" alt="MyPerro" style="height:28px;width:auto;display:block;"></a></a>
   <div class="nav-links">
     <a href="#collar">Product</a>
     <a href="#perks">Perks</a>
@@ -1583,7 +1590,7 @@
 <!-- ── FOOTER ── -->
 <footer>
   <div class="footer-inner">
-    <span class="footer-logo">My<span>Perro</span></span>
+    <img src="group.png" alt="MyPerro" style="height:24px;width:auto;display:block;">
     <span class="footer-copy">© 2026 MyPerro. myperro.in</span>
     <div class="footer-links">
       <a href="#">Privacy</a>
