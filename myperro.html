@@ -295,7 +295,7 @@
   .map-img {
     width: 100%; height: 100%;
     object-fit: cover;
-    filter: brightness(0.5) saturate(0.25) contrast(1.15);
+    filter: brightness(0.50) saturate(0.25) contrast(1.15);
     display: block;
   }
   .map-vignette {
@@ -434,7 +434,7 @@
     display: grid; grid-template-columns: 1fr 2fr; gap: 80px;
     align-items: start; margin-bottom: 80px;
   }
-  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; margin-top: 64px; background: var(--border); }
+  .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 64px; background: var(--border); }
   .stat-block {
     background: var(--e1); padding: 48px 36px;
     transition: background 0.3s;
@@ -655,7 +655,7 @@
     .pricing-card { grid-row: auto; }
     .slots-grid { grid-template-columns: repeat(5, 1fr); }
     .traction-header { grid-template-columns: 1fr; gap: 24px; }
-    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .stats-grid { grid-template-columns: repeat(3, 1fr); }
     .section-headline { font-size: 40px; letter-spacing: -1.5px; }
   }
   @media (max-width: 768px) {
@@ -668,10 +668,10 @@
     .hero-headline { font-size: 44px; letter-spacing: -2px; }
     .hero-headline .always { font-size: 54px; }
     .hero-sub { font-size: 14px; }
-    .depth-dog-wrap { width: 42vw; opacity: 0.18; }
+    .depth-dog-wrap { width: 50vw; opacity: 0.22; right: 0; }
     .depth-halo { display: none; }
     .status-pill { display: none; }
-    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .stats-grid { grid-template-columns: repeat(3, 1fr); }
     .stat-number { font-size: 48px; }
     .footer-inner { flex-direction: column; gap: 14px; text-align: center; }
     .footer-links { justify-content: center; }
@@ -699,7 +699,16 @@
     .hero-sub { font-size: 13px; max-width: 100%; }
     .hero-label { font-size: 9px; }
     .btn-primary { font-size: 13px; padding: 14px 24px; }
-    .depth-dog-wrap { display: none; }
+    .depth-dog-wrap {
+      width: 100vw; height: 55vw; min-height: 200px;
+      top: auto; bottom: 0; right: 0; left: 0;
+      opacity: 0.15;
+    }
+    .depth-dog-img {
+      object-position: center 20%;
+      mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 60%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 60%, transparent 100%);
+    }
     .section-headline { font-size: 34px; letter-spacing: -1.5px; }
     .section-tag { font-size: 9px; }
     .slots-grid { grid-template-columns: repeat(4, 1fr); gap: 8px; }
@@ -708,7 +717,7 @@
     .process-item { grid-template-columns: 48px 1fr; gap: 20px; padding: 28px 0; }
     .process-num { font-size: 36px; }
     .process-content h3 { font-size: 22px; }
-    .stats-grid { gap: 0; }
+    .stats-grid { gap: 0; grid-template-columns: 1fr; }
     .stat-block { padding: 32px 20px; }
     .stat-number { font-size: 44px; }
     .deposit-card { padding: 24px 20px; }
@@ -722,6 +731,394 @@
     .footer-inner { padding: 0; }
     footer { padding: 36px 16px; }
     .perks-layout { grid-template-columns: 1fr; gap: 14px; }
+  }
+
+  /* ── FAQ ── */
+  #faq { background: var(--canvas); }
+  .faq-list { margin-top: 64px; }
+  .faq-item {
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .faq-item:first-child { border-top: 1px solid var(--border); }
+  .faq-trigger {
+    width: 100%; background: none; border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 28px 0; gap: 24px; text-align: left;
+    transition: background 0.2s;
+  }
+  .faq-trigger:hover .faq-q { color: var(--text-headline); }
+  .faq-q {
+    font-family: var(--font-body); font-size: 15px; font-weight: 500;
+    color: var(--text-body); line-height: 1.4;
+    transition: color 0.2s;
+  }
+  .faq-icon {
+    width: 28px; height: 28px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--accent); font-size: 20px; font-weight: 300;
+    line-height: 1; transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
+    font-family: var(--font-body);
+  }
+  .faq-item.open .faq-icon { transform: rotate(45deg); }
+  .faq-body {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.25,0.46,0.45,0.94), padding 0.3s ease;
+  }
+  .faq-item.open .faq-body { max-height: 300px; }
+  .faq-a {
+    font-size: 14px; color: var(--text-secondary); line-height: 1.75;
+    padding-bottom: 28px; max-width: 680px; font-weight: 300;
+  }
+
+  /* ── COUNTDOWN ── */
+  #countdown-strip {
+    background: var(--e1);
+    border-bottom: 1px solid var(--border);
+    padding: 28px 48px; text-align: center;
+    position: relative; z-index: 10;
+  }
+  .cd-label {
+    font-family: var(--font-mono); font-size: 10px;
+    color: var(--text-muted); letter-spacing: 0.16em; text-transform: uppercase;
+    margin-bottom: 20px; display: block;
+  }
+  .cd-units {
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .cd-unit { text-align: center; min-width: 72px; }
+  .cd-n {
+    display: block;
+    font-family: var(--font-display); font-size: clamp(40px, 5vw, 60px);
+    font-weight: 500; letter-spacing: -2px; color: var(--text-headline); line-height: 1;
+  }
+  .cd-l {
+    display: block; font-family: var(--font-mono); font-size: 9px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--text-muted); margin-top: 6px;
+  }
+  .cd-sep {
+    font-family: var(--font-display); font-size: 36px;
+    color: var(--accent); line-height: 1; margin-bottom: 14px; font-weight: 300;
+  }
+
+  /* ── FORM MODAL ── */
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 900;
+    background: rgba(0,0,0,0.88);
+    backdrop-filter: blur(16px);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.35s ease;
+    padding: 20px;
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: auto; }
+  .modal-box {
+    background: var(--e1); border: 1px solid var(--border-hover);
+    border-radius: 16px; width: 100%; max-width: 520px;
+    max-height: 90vh; overflow-y: auto;
+    transform: translateY(24px) scale(0.97);
+    transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);
+    position: relative;
+  }
+  .modal-overlay.open .modal-box { transform: translateY(0) scale(1); }
+  .modal-header {
+    padding: 32px 32px 0;
+    display: flex; align-items: flex-start; justify-content: space-between;
+  }
+  .modal-title-block .modal-eyebrow {
+    font-family: var(--font-mono); font-size: 10px;
+    color: var(--accent); letter-spacing: 0.14em; text-transform: uppercase;
+    margin-bottom: 6px; display: block;
+  }
+  .modal-title-block h3 {
+    font-family: var(--font-display); font-size: 28px;
+    font-weight: 500; letter-spacing: -1px; color: var(--text-headline); line-height: 1.1;
+  }
+  .modal-close-btn {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--e3); border: 1px solid var(--border);
+    color: var(--text-secondary); font-size: 16px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; flex-shrink: 0; margin-top: 2px;
+    transition: background 0.2s, color 0.2s;
+  }
+  .modal-close-btn:hover { background: var(--e2); color: var(--text-headline); }
+  .modal-form { padding: 24px 32px 32px; }
+  .f-row { margin-bottom: 18px; }
+  .f-label {
+    display: block; font-family: var(--font-mono); font-size: 10px;
+    color: var(--text-muted); letter-spacing: 0.12em; text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .f-in {
+    width: 100%; background: var(--e2);
+    border: 1px solid var(--border); border-radius: 8px;
+    padding: 13px 16px; color: var(--text-headline);
+    font-family: var(--font-body); font-size: 14px; font-weight: 300;
+    outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .f-in::placeholder { color: var(--text-muted); }
+  .f-in:focus { border-color: rgba(232,97,26,0.4); box-shadow: 0 0 0 3px rgba(232,97,26,0.08); }
+  .f-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .f-upload-label {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 10px; padding: 28px;
+    border: 1px dashed rgba(232,97,26,0.25); border-radius: 8px;
+    background: var(--glow-bg); cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .f-upload-label:hover { border-color: rgba(232,97,26,0.45); background: rgba(232,97,26,0.08); }
+  .f-upload-label input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+  .f-upload-icon { font-size: 28px; }
+  .f-upload-text {
+    font-family: var(--font-body); font-size: 13px; color: var(--text-secondary);
+    text-align: center; line-height: 1.5;
+  }
+  .f-upload-text strong { color: var(--accent); }
+  .f-upload-preview {
+    width: 72px; height: 72px; border-radius: 50%;
+    object-fit: cover; border: 2px solid var(--accent);
+    display: none; margin: 0 auto;
+  }
+  .f-upload-preview.visible { display: block; }
+  .rank-peek {
+    background: var(--glow-bg); border: 1px solid var(--glow-border);
+    border-radius: 8px; padding: 12px 16px;
+    font-size: 13px; color: var(--text-secondary); line-height: 1.6;
+    margin-bottom: 20px; display: none;
+  }
+  .rank-peek.show { display: block; }
+  .rank-peek strong { color: var(--accent); }
+  .f-submit {
+    width: 100%; margin-top: 8px;
+    background: var(--accent); color: #fff; border: none;
+    border-radius: 8px; padding: 16px;
+    font-family: var(--font-body); font-size: 14px; font-weight: 500;
+    cursor: pointer;
+    transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s;
+    box-shadow: 0 4px 20px rgba(232,97,26,0.25);
+  }
+  .f-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 36px rgba(232,97,26,0.4); }
+  .f-guarantee {
+    text-align: center; margin-top: 12px;
+    font-family: var(--font-mono); font-size: 10px; color: var(--text-muted);
+    letter-spacing: 0.06em;
+  }
+
+  /* ── VIRTUAL MEMBERSHIP CARD ── */
+  .card-overlay {
+    position: fixed; inset: 0; z-index: 950;
+    background: rgba(0,0,0,0.92);
+    backdrop-filter: blur(20px);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.35s ease;
+    padding: 20px;
+  }
+  .card-overlay.open { opacity: 1; pointer-events: auto; }
+  .card-wrapper {
+    display: flex; flex-direction: column; align-items: center; gap: 28px;
+    transform: translateY(20px);
+    transition: transform 0.45s cubic-bezier(0.22,1,0.36,1);
+  }
+  .card-overlay.open .card-wrapper { transform: translateY(0); }
+  .v-card {
+    width: 360px; aspect-ratio: 1.586;
+    background: linear-gradient(135deg, #0f0f11 0%, #1a1a1e 50%, #0f0f11 100%);
+    border: 1px solid rgba(232,97,26,0.3);
+    border-radius: 16px; padding: 28px;
+    position: relative; overflow: hidden;
+    box-shadow: 0 0 80px rgba(232,97,26,0.18), 0 40px 80px rgba(0,0,0,0.6);
+  }
+  .v-card::before {
+    content: ''; position: absolute;
+    top: -60px; right: -60px; width: 240px; height: 240px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(232,97,26,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .v-card::after {
+    content: ''; position: absolute;
+    bottom: -40px; left: -40px; width: 160px; height: 160px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(232,97,26,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .vc-top {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 20px;
+  }
+  .vc-logo {
+    font-family: var(--font-display); font-size: 18px; font-weight: 500;
+    color: var(--text-headline); letter-spacing: -0.5px;
+  }
+  .vc-logo span { color: var(--accent); }
+  .vc-badge {
+    font-family: var(--font-mono); font-size: 8px; color: var(--accent);
+    letter-spacing: 0.14em; text-transform: uppercase;
+    border: 1px solid var(--glow-border); background: var(--glow-bg);
+    padding: 4px 8px; border-radius: 4px;
+  }
+  .vc-mid {
+    display: flex; align-items: center; gap: 16px; margin-bottom: 20px;
+  }
+  .vc-avatar {
+    width: 56px; height: 56px; border-radius: 50%;
+    border: 2px solid var(--accent);
+    background: var(--e3);
+    object-fit: cover; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-size: 22px; color: var(--accent);
+  }
+  .vc-avatar-img {
+    width: 56px; height: 56px; border-radius: 50%;
+    object-fit: cover; border: 2px solid var(--accent);
+  }
+  .vc-info { flex: 1; }
+  .vc-number {
+    font-family: var(--font-display); font-size: 38px; font-weight: 500;
+    color: var(--accent); letter-spacing: -2px; line-height: 1;
+  }
+  .vc-member-name {
+    font-family: var(--font-body); font-size: 13px; font-weight: 500;
+    color: var(--text-headline); margin-top: 4px;
+  }
+  .vc-dog-name {
+    font-family: var(--font-mono); font-size: 9px; color: var(--text-secondary);
+    letter-spacing: 0.08em; margin-top: 2px;
+  }
+  .vc-bottom {
+    display: flex; justify-content: space-between; align-items: flex-end;
+  }
+  .vc-perks {
+    display: flex; flex-direction: column; gap: 3px;
+  }
+  .vc-perk {
+    font-family: var(--font-mono); font-size: 8px; color: var(--text-muted);
+    letter-spacing: 0.06em;
+  }
+  .vc-perk span { color: var(--text-secondary); }
+  .vc-city {
+    font-family: var(--font-mono); font-size: 9px; color: var(--text-muted);
+    letter-spacing: 0.1em; text-transform: uppercase; text-align: right;
+  }
+  .vc-city strong { color: var(--accent); display: block; font-size: 11px; }
+  .card-actions {
+    display: flex; flex-direction: column; align-items: center; gap: 12px; width: 360px;
+  }
+  .card-actions-title {
+    font-family: var(--font-mono); font-size: 10px; color: var(--text-muted);
+    letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .card-share-btns { display: flex; gap: 10px; width: 100%; }
+  .share-btn {
+    flex: 1; padding: 12px; border-radius: 8px; border: none; cursor: pointer;
+    font-family: var(--font-body); font-size: 12px; font-weight: 500;
+    transition: transform 0.2s cubic-bezier(0.22,1,0.36,1), opacity 0.2s;
+  }
+  .share-btn:hover { transform: translateY(-2px); opacity: 0.9; }
+  .share-btn.wa { background: #25D366; color: #fff; }
+  .share-btn.tw { background: #000; color: #fff; border: 1px solid #333; }
+  .share-btn.cp { background: var(--e3); color: var(--text-body); border: 1px solid var(--border); }
+  .card-close {
+    font-family: var(--font-mono); font-size: 10px; color: var(--text-muted);
+    background: none; border: none; cursor: pointer; letter-spacing: 0.08em;
+    transition: color 0.2s;
+  }
+  .card-close:hover { color: var(--text-secondary); }
+
+  /* Dog photo in slots */
+  .slot img {
+    width: 100%; height: 100%; object-fit: cover;
+    border-radius: 50%;
+  }
+  .slot.taken .slot-inner { display: none; }
+
+  @media (max-width: 480px) {
+    .f-2 { grid-template-columns: 1fr; }
+    .modal-form { padding: 20px; }
+    .modal-header { padding: 24px 20px 0; }
+    .v-card { width: 300px; }
+    .vc-number { font-size: 30px; }
+    .card-actions { width: 300px; }
+  }
+
+  /* ── FOUNDER NOTE ── */
+  #founder {
+    background: var(--e1);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    position: relative; z-index: 10;
+  }
+  .founder-inner {
+    max-width: var(--max-w); margin: 0 auto;
+    padding: 80px 48px;
+    display: grid; grid-template-columns: 1px 1fr; gap: 48px; align-items: start;
+  }
+  .founder-rule {
+    width: 1px; background: var(--accent); height: 100%;
+    opacity: 0.4; min-height: 120px;
+  }
+  .founder-quote {
+    font-family: var(--font-display); font-size: clamp(20px, 2.2vw, 28px);
+    font-weight: 400; font-style: italic;
+    color: var(--text-body); line-height: 1.6;
+    letter-spacing: -0.5px; margin-bottom: 24px;
+  }
+  .founder-quote em { color: var(--text-headline); font-style: normal; }
+  .founder-sig {
+    font-family: var(--font-mono); font-size: 10px;
+    color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .founder-sig strong { color: var(--text-secondary); }
+  @media (max-width: 768px) {
+    .founder-inner { padding: 64px 20px; grid-template-columns: 1px 1fr; gap: 28px; }
+    .founder-quote { font-size: 18px; }
+  }
+  @media (max-width: 480px) {
+    .founder-inner { padding: 48px 16px; }
+    .founder-quote { font-size: 17px; }
+  }
+
+  /* ── CARD PREVIEW SECTION ── */
+  #card-preview {
+    background: var(--canvas);
+    text-align: center; position: relative; z-index: 10;
+    overflow: hidden;
+  }
+  #card-preview::before {
+    content: ''; position: absolute;
+    width: 600px; height: 600px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(232,97,26,0.07) 0%, transparent 65%);
+    left: 50%; top: 50%; transform: translate(-50%, -50%);
+    filter: blur(50px); pointer-events: none;
+  }
+  .card-preview-inner { position: relative; z-index: 2; }
+  .card-preview-inner .section-headline { margin-bottom: 12px; }
+  .card-preview-sub {
+    font-size: 14px; color: var(--text-secondary); margin-bottom: 56px;
+    max-width: 400px; margin-left: auto; margin-right: auto;
+  }
+  .example-card {
+    display: inline-block;
+    width: 380px;
+    background: linear-gradient(135deg, #0f0f11 0%, #1a1a1e 50%, #0f0f11 100%);
+    border: 1px solid rgba(232,97,26,0.3);
+    border-radius: 16px; padding: 28px;
+    position: relative; overflow: hidden;
+    box-shadow: 0 0 60px rgba(232,97,26,0.12), 0 40px 80px rgba(0,0,0,0.5);
+    text-align: left;
+  }
+  .example-card::before {
+    content: ''; position: absolute;
+    top: -60px; right: -60px; width: 220px; height: 220px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(232,97,26,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  @media (max-width: 480px) {
+    .example-card { width: 100%; max-width: 340px; }
   }
 </style>
 </head>
@@ -743,7 +1140,7 @@
     <a href="#process">How it works</a>
     <a href="#wall">Founding Pack</a>
   </div>
-  <button class="nav-cta" onclick="handleReserve()">Reserve Spot</button>
+  <button class="nav-cta" onclick="openFormModal()">Reserve Spot</button>
 </nav>
 
 <!-- ── HERO ── -->
@@ -792,9 +1189,9 @@
         Know where<br>they are.<br>
         <span class="always">Always.</span>
       </h1>
-      <p class="hero-sub">India's first AI-powered GPS collar with real-time tracking and intelligent geo-fencing. The Founding Pack unlocks exclusive pricing and limited perks.</p>
+      <p class="hero-sub">India's first GPS + geo-fencing dog collar. Know where they are, always. The first pet parents who believe in this — get founder privileges that last forever.</p>
       <div class="hero-actions">
-        <button class="btn-primary" onclick="handleReserve()">
+        <button class="btn-primary" onclick="openFormModal()">
           Join the Founding Pack <span class="btn-arrow">→</span>
         </button>
         <a href="#collar" class="btn-secondary">Explore ↓</a>
@@ -812,6 +1209,20 @@
       <div class="progress-bar-fill" id="progressFill"></div>
     </div>
     <span class="counter-status" id="counterDisplay">7 / 20 claimed</span>
+  </div>
+</div>
+
+<!-- ── COUNTDOWN ── -->
+<div id="countdown-strip">
+  <span class="cd-label">Founding Pack closes in</span>
+  <div class="cd-units">
+    <div class="cd-unit"><span class="cd-n" id="cdD">14</span><span class="cd-l">Days</span></div>
+    <span class="cd-sep">:</span>
+    <div class="cd-unit"><span class="cd-n" id="cdH">08</span><span class="cd-l">Hours</span></div>
+    <span class="cd-sep">:</span>
+    <div class="cd-unit"><span class="cd-n" id="cdM">44</span><span class="cd-l">Mins</span></div>
+    <span class="cd-sep">:</span>
+    <div class="cd-unit"><span class="cd-n" id="cdS">22</span><span class="cd-l">Secs</span></div>
   </div>
 </div>
 
@@ -871,47 +1282,47 @@
         <span class="savings">You save ₹3,000 — forever.</span>
         <p class="pricing-desc">Founding members lock in the lowest price MyPerro will ever be offered. As the product evolves, your price stays unchanged.</p>
         <div class="perk-list">
-          <div class="perk-item">
-            <div class="perk-check"></div>
-            <span>Founding member price locked permanently</span>
-          </div>
-          <div class="perk-item">
-            <div class="perk-check"></div>
-            <span>Priority dispatch — first collars leave our workshop first</span>
-          </div>
-          <div class="perk-item">
-            <div class="perk-check"></div>
-            <span>Lifetime premium plan at no additional cost</span>
-          </div>
-          <div class="perk-item">
-            <div class="perk-check"></div>
-            <span>Direct access to the product team via a private channel</span>
-          </div>
-          <div class="perk-item">
-            <div class="perk-check"></div>
-            <span>Your dog's name on the Founding Wall</span>
-          </div>
-          <div class="perk-item">
-            <div class="perk-check"></div>
-            <span>30-day no-questions return guarantee</span>
-          </div>
+          <div class="perk-item"><div class="perk-check"></div><span>Founding member price locked permanently</span></div>
+          <div class="perk-item"><div class="perk-check"></div><span>Priority dispatch — first collars leave our workshop first</span></div>
+          <div class="perk-item"><div class="perk-check"></div><span>6 months subscription free — worth ₹1,500–1,800</span></div>
+          <div class="perk-item"><div class="perk-check"></div><span>Pet's name laser-engraved + accent color of your choice</span></div>
+          <div class="perk-item"><div class="perk-check"></div><span>Exclusive mystery merch box — founding edition only</span></div>
+          <div class="perk-item"><div class="perk-check"></div><span>Your dog's photo on the Founding Wall — forever</span></div>
+          <div class="perk-item"><div class="perk-check"></div><span>Beta tester status — shape every feature first</span></div>
+          <div class="perk-item"><div class="perk-check"></div><span>Direct founder access via private WhatsApp group</span></div>
+          <div class="perk-item"><div class="perk-check"></div><span>Founding Pack badge on your dog's app profile — #OG</span></div>
         </div>
       </div>
       <div class="right-perks">
         <div class="perk-card reveal reveal-delay-2">
           <span class="perk-icon">PERK 01</span>
-          <h4>Geo-fence Intelligence</h4>
-          <p>Define safe zones on a map. Get alerted the moment your dog crosses them — before they're out of sight.</p>
+          <h4>Collar at ₹5,999 Flat</h4>
+          <p>Retail will be ₹8,999. You lock in at the base price. Permanently. No exceptions.</p>
         </div>
         <div class="perk-card reveal reveal-delay-3">
           <span class="perk-icon">PERK 02</span>
-          <h4>Activity Insights</h4>
-          <p>Track walks, rest, play. Know if your dog is getting enough movement, or sleeping more than usual.</p>
+          <h4>6 Months Free Subscription</h4>
+          <p>GPS tracking and geo-fence alerts, covered by us for 6 months. That's ₹250–300 per month, on us.</p>
         </div>
         <div class="perk-card reveal reveal-delay-4">
           <span class="perk-icon">PERK 03</span>
-          <h4>Shape the Product</h4>
-          <p>Founding members have a voice. Your feedback directly influences features in version 2 and beyond.</p>
+          <h4>Collar Customisation</h4>
+          <p>Your pet's name laser-engraved. Pick your accent color. Built specifically for them.</p>
+        </div>
+        <div class="perk-card reveal reveal-delay-5">
+          <span class="perk-icon">PERK 04</span>
+          <h4>Mystery Merch Box</h4>
+          <p>Curated founding edition drop — bandana, enamel paw pin, keychain and more. For the dog with taste.</p>
+        </div>
+        <div class="perk-card reveal reveal-delay-5">
+          <span class="perk-icon">PERK 05</span>
+          <h4>Your Pet on Our Site</h4>
+          <p>Photo and name on MyPerro's Founding Pack Wall — permanent, public, legendary.</p>
+        </div>
+        <div class="perk-card reveal reveal-delay-5">
+          <span class="perk-icon">PERK 06</span>
+          <h4>Direct Founder Access</h4>
+          <p>Private WhatsApp group with the MyPerro team. Real people, real answers. Not a ticket system.</p>
         </div>
       </div>
     </div>
@@ -934,20 +1345,30 @@
     <div class="stats-grid">
       <div class="stat-block reveal">
         <span class="stat-number">97<span class="accent">%</span></span>
-        <span class="stat-label">waitlist satisfaction in<br>early surveys</span>
+        <span class="stat-label">GPS accuracy<br>in field tests</span>
       </div>
       <div class="stat-block reveal reveal-delay-1">
-        <span class="stat-number">86<span class="accent">+</span></span>
-        <span class="stat-label">pre-registered pet<br>parents</span>
+        <span class="stat-number">100<span class="accent">+</span></span>
+        <span class="stat-label">pet parents<br>on the waitlist</span>
       </div>
       <div class="stat-block reveal reveal-delay-2">
-        <span class="stat-number">22<span class="accent">+</span></span>
-        <span class="stat-label">cities across<br>India</span>
+        <span class="stat-number">86<span class="accent">+</span></span>
+        <span class="stat-label">dogs tested<br>across India</span>
       </div>
-      <div class="stat-block reveal reveal-delay-3">
-        <span class="stat-number">100<span class="accent">+</span></span>
-        <span class="stat-label">vet and trainer<br>conversations</span>
-      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── FOUNDER NOTE ── -->
+<section id="founder">
+  <div class="founder-inner">
+    <div class="founder-rule"></div>
+    <div>
+      <p class="founder-quote reveal">
+        "I built MyPerro because my dog Muffin nearly died from an illness that went <em>completely undetected</em> at a boarding facility. No one noticed. No one told us. That moment broke me — and it made me obsessed with building something that means no pet parent ever feels that helpless again."
+      </p>
+      <p class="founder-sig reveal reveal-delay-1"><strong>Saiprasad Pandilwar</strong> — Co-Founder & CEO, MyPerro</p>
     </div>
   </div>
 </section>
@@ -962,40 +1383,159 @@
   </div>
 </section>
 
+
+<!-- ── CARD PREVIEW ── -->
+<section id="card-preview">
+  <div class="section-inner card-preview-inner">
+    <span class="section-tag reveal" style="display:block;text-align:center;">004.5 — Membership</span>
+    <h2 class="section-headline reveal reveal-delay-1">Your card,<br><em>issued on join.</em></h2>
+    <p class="card-preview-sub reveal reveal-delay-2">Every Founding Pack member gets a shareable digital membership card — with their dog's photo, their spot number, and their locked-in perks.</p>
+    <div class="reveal reveal-delay-3">
+      <div class="example-card">
+        <div class="vc-top">
+          <span class="vc-logo">My<span>Perro</span></span>
+          <span class="vc-badge">Founding Pack</span>
+        </div>
+        <div class="vc-mid">
+          <div class="vc-avatar">🐾</div>
+          <div class="vc-info">
+            <div class="vc-number">#8</div>
+            <div class="vc-member-name">Your Name</div>
+            <div class="vc-dog-name">Your dog's companion</div>
+          </div>
+        </div>
+        <div class="vc-bottom">
+          <div class="vc-perks">
+            <div class="vc-perk">Price locked at <span>₹5,999</span></div>
+            <div class="vc-perk">Lifetime premium <span>included</span></div>
+            <div class="vc-perk">Ships <span>April 2026</span></div>
+          </div>
+          <div class="vc-city">
+            <span>India</span>
+            <strong>myperro.in</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ── PROCESS ── -->
 <section id="process">
   <div class="section-inner">
     <span class="section-tag reveal">005 — How it works</span>
-    <h2 class="section-headline reveal reveal-delay-1">Simple by design.</h2>
+    <h2 class="section-headline reveal reveal-delay-1">Four steps to<br><em>peace of mind.</em></h2>
     <div class="process-list">
       <div class="process-item reveal reveal-delay-1">
         <span class="process-num">01</span>
         <div class="process-content">
-          <h3>Reserve your spot</h3>
-          <p>A refundable ₹500 deposit holds your place in the Founding Pack. No risk. Fully cancellable until dispatch.</p>
+          <h3>Pay ₹500</h3>
+          <p>Locks your numbered Founding Pack spot. Fully adjusted toward your collar on delivery. 100% refundable if we don't deliver.</p>
         </div>
       </div>
       <div class="process-item reveal reveal-delay-2">
         <span class="process-num">02</span>
         <div class="process-content">
-          <h3>We build, you wait</h3>
-          <p>Your collar is assembled and tested through April 2026. We keep you updated — you'll know exactly where it is at every stage.</p>
+          <h3>Get your number</h3>
+          <p>Your Founding Pack membership card is issued instantly with your spot number. Share it. It's yours forever.</p>
         </div>
       </div>
       <div class="process-item reveal reveal-delay-3">
         <span class="process-num">03</span>
         <div class="process-content">
-          <h3>Collar ships first</h3>
-          <p>Founding Pack orders dispatch before all others. Your dog is the first in their city wearing it.</p>
+          <h3>Customise</h3>
+          <p>Name engraving, accent color, sizing, pet photo for the Wall — we handle every detail after you're in.</p>
         </div>
       </div>
       <div class="process-item reveal reveal-delay-4">
         <span class="process-num">04</span>
         <div class="process-content">
-          <h3>You never stop knowing</h3>
-          <p>Real-time GPS. Intelligent alerts. A calm, assured feeling that — wherever they wander — you'll always know.</p>
+          <h3>Unbox and set free</h3>
+          <p>Collar and merch box delivered April 2026. Personal onboarding call from our founder, included.</p>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── FAQ ── -->
+<section id="faq">
+  <div class="section-inner">
+    <span class="section-tag reveal">007 — Questions</span>
+    <h2 class="section-headline reveal reveal-delay-1">Things people<br>always ask.</h2>
+    <div class="faq-list reveal reveal-delay-2">
+
+      <div class="faq-item">
+        <button class="faq-trigger" onclick="toggleFaq(this)">
+          <span class="faq-q">What exactly does the MyPerro collar do?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-body">
+          <p class="faq-a">It tracks your dog's location in real-time using multi-band GPS and 4G LTE. You can set geo-fences — virtual boundaries — and get an instant alert the moment your dog steps outside them. It also monitors activity patterns and flags unusual behaviour over time.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-trigger" onclick="toggleFaq(this)">
+          <span class="faq-q">When will my collar ship?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-body">
+          <p class="faq-a">Founding Pack orders ship in April 2026. Founding members are dispatched first — before any retail or general waitlist orders. You'll get shipping updates directly from us as we get closer.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-trigger" onclick="toggleFaq(this)">
+          <span class="faq-q">Is the ₹500 deposit refundable?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-body">
+          <p class="faq-a">Completely. If you change your mind at any point before dispatch, we'll return the full ₹500 — no questions, no forms. The deposit simply holds your place in the pack.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-trigger" onclick="toggleFaq(this)">
+          <span class="faq-q">Is there a subscription fee after purchase?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-body">
+          <p class="faq-a">There is a small connectivity plan to cover 4G data and cloud services. Founding Pack members get this included at no extra cost for the lifetime of their device — it's one of the core perks of joining early.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-trigger" onclick="toggleFaq(this)">
+          <span class="faq-q">Will it fit my dog?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-body">
+          <p class="faq-a">The collar is designed for medium to large breeds. We'll collect your dog's neck size before dispatch to ensure the right fit. A sizing guide will be shared with all Founding Pack members ahead of shipping.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-trigger" onclick="toggleFaq(this)">
+          <span class="faq-q">How long does the battery last?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-body">
+          <p class="faq-a">Up to 7 days on a single charge with standard tracking. If you use continuous high-frequency GPS, expect around 3–4 days. Charging takes roughly 2 hours via the magnetic port.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-trigger" onclick="toggleFaq(this)">
+          <span class="faq-q">Can I get my dog on the MyPerro website?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-body">
+          <p class="faq-a">Yes — Founding Pack members can submit a photo of their dog to be featured on the Founding Wall on myperro.in. It's a small way of saying your dog helped build this.</p>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1014,8 +1554,8 @@
       <div class="deposit-card">
         <span class="deposit-amount">₹500</span>
         <span class="deposit-label">Refundable Reservation Deposit</span>
-        <!-- Razorpay integration: replace onclick with Razorpay payment initiation -->
-        <button class="btn-cta-large" onclick="handleReserve()">
+        <!-- Opens form modal before Razorpay -->
+        <button class="btn-cta-large" onclick="openFormModal()">
           Join the Founding Pack <span class="cta-arrow">→</span>
         </button>
       </div>
@@ -1086,28 +1626,7 @@
     document.getElementById('progressFill').style.width = '35%';
   }, 800);
 
-  // ── Founding Wall
-  const TAKEN = 7, TOTAL = 20;
-  const grid = document.getElementById('slotsGrid');
-  const initials = ['RM','PS','AK','KR','VT','MP','SN'];
-  for (let i = 0; i < TOTAL; i++) {
-    const slot = document.createElement('div');
-    slot.className = 'slot';
-    const inner = document.createElement('div');
-    inner.className = 'slot-inner';
-    if (i < TAKEN) {
-      slot.classList.add('taken');
-      inner.textContent = initials[i] || '#' + (i+1);
-    } else if (i === TAKEN) {
-      slot.classList.add('next');
-      inner.textContent = 'You?';
-    } else {
-      slot.classList.add('empty');
-      inner.textContent = '#' + (i+1);
-    }
-    slot.appendChild(inner);
-    grid.appendChild(slot);
-  }
+  // Slots built by buildSlots() below
 
   // Dots removed
 
@@ -1179,13 +1698,286 @@
   }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
   reveals.forEach(el => observer.observe(el));
 
-  // ── Reserve handler (placeholder)
-  function handleReserve() {
-    // TODO: integrate Razorpay
-    // var options = { key: "rzp_live_XXXX", amount: 50000, currency: "INR", ... };
-    // var rzp = new Razorpay(options); rzp.open();
-    alert('Founding Pack reservation coming soon!\n\nDrop a mail at hello@myperro.in to be first in line.');
+  // ── CONFIG
+  const PACK_TAKEN = 7, PACK_TOTAL = 20;
+  const DEADLINE = new Date(Date.now() + 14 * 24 * 60 * 60 * 1000);
+
+  // ── COUNTDOWN
+  function tickCountdown() {
+    const d = DEADLINE - Date.now();
+    if (d <= 0) return;
+    const pad = n => String(n).padStart(2, '0');
+    document.getElementById('cdD').textContent = pad(Math.floor(d / 86400000));
+    document.getElementById('cdH').textContent = pad(Math.floor(d % 86400000 / 3600000));
+    document.getElementById('cdM').textContent = pad(Math.floor(d % 3600000 / 60000));
+    document.getElementById('cdS').textContent = pad(Math.floor(d % 60000 / 1000));
+  }
+  tickCountdown();
+  setInterval(tickCountdown, 1000);
+
+  // Dog photo data URL storage
+  let dogPhotoDataUrl = null;
+  // Members array — taken slots store {name, dog, photo}
+  const members = [
+    {name:'Rohan M.', dog:'Bruno', city:'Mumbai', photo:null},
+    {name:'Priya S.', dog:'Bella', city:'Bengaluru', photo:null},
+    {name:'Arjun K.', dog:'Max', city:'Delhi', photo:null},
+    {name:'Kavya R.', dog:'Luna', city:'Hyderabad', photo:null},
+    {name:'Varun T.', dog:'Oreo', city:'Chennai', photo:null},
+    {name:'Meera P.', dog:'Rocky', city:'Pune', photo:null},
+    {name:'Sid N.', dog:'Daisy', city:'Kolkata', photo:null},
+  ];
+
+  // ── BUILD SLOTS (overrides the earlier basic slot build)
+  function buildSlots() {
+    const grid = document.getElementById('slotsGrid');
+    grid.innerHTML = '';
+    for (let i = 0; i < PACK_TOTAL; i++) {
+      const slot = document.createElement('div');
+      slot.className = 'slot';
+      const inner = document.createElement('div');
+      inner.className = 'slot-inner';
+      if (i < members.length) {
+        slot.classList.add('taken');
+        if (members[i].photo) {
+          const img = document.createElement('img');
+          img.src = members[i].photo;
+          img.alt = members[i].dog;
+          slot.appendChild(img);
+        } else {
+          inner.textContent = members[i].dog.substring(0,2).toUpperCase();
+          slot.appendChild(inner);
+        }
+        slot.title = members[i].dog + ' · ' + members[i].city;
+      } else if (i === members.length) {
+        slot.classList.add('next');
+        inner.textContent = 'You?';
+        slot.appendChild(inner);
+      } else {
+        slot.classList.add('empty');
+        inner.textContent = '#' + (i + 1);
+        slot.appendChild(inner);
+      }
+      grid.appendChild(slot);
+    }
+  }
+  buildSlots();
+
+  // ── FORM MODAL
+  function openFormModal() {
+    document.getElementById('formSpotNum').textContent = members.length + 1;
+    document.getElementById('formModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeFormModal() {
+    document.getElementById('formModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function onPetInput() {
+    const n = document.getElementById('fPet').value.trim();
+    const el = document.getElementById('rankPeek');
+    if (n.length > 1) {
+      el.innerHTML = 'Securing <strong>' + n + '</strong>\'s spot as <strong>Founding Pack Member #' + (members.length + 1) + '</strong> — locked at ₹5,999 forever.';
+      el.classList.add('show');
+    } else {
+      el.classList.remove('show');
+    }
+  }
+
+  function handlePhoto(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      dogPhotoDataUrl = e.target.result;
+      const preview = document.getElementById('photoPreview');
+      preview.src = dogPhotoDataUrl;
+      preview.classList.add('visible');
+      document.getElementById('uploadIcon').style.display = 'none';
+      document.getElementById('uploadText').style.display = 'none';
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function onSubmitForm() {
+    const name  = document.getElementById('fName').value.trim();
+    const pet   = document.getElementById('fPet').value.trim();
+    const email = document.getElementById('fEmail').value.trim();
+    const phone = document.getElementById('fPhone').value.trim();
+    const city  = document.getElementById('fCity').value.trim();
+    if (!name || !pet || !email || !phone) {
+      alert('Please fill in all required fields to secure your spot 🐾');
+      return;
+    }
+    // TODO: init Razorpay here
+    // var rzp = new Razorpay({ key:'rzp_live_XXXX', amount:50000, currency:'INR',
+    //   name:'MyPerro', description:'Founding Pack Deposit',
+    //   handler: function(resp){ onPaymentSuccess(name,pet,city); } });
+    // rzp.open(); return;
+
+    // Simulate success (remove when Razorpay is live):
+    onPaymentSuccess(name, pet, city);
+  }
+
+  function onPaymentSuccess(name, pet, city) {
+    // Add new member
+    const spotNum = members.length + 1;
+    members.push({ name, dog: pet, city: city || 'India', photo: dogPhotoDataUrl });
+
+    // Rebuild slots with new dog photo
+    buildSlots();
+
+    // Update progress
+    document.getElementById('progressFill').style.width = (members.length / PACK_TOTAL * 100) + '%';
+    document.getElementById('counterDisplay').textContent = members.length + ' / ' + PACK_TOTAL + ' claimed';
+
+    // Close form, show virtual card
+    closeFormModal();
+    showVirtualCard(name, pet, city || 'India', spotNum, dogPhotoDataUrl);
+  }
+
+  // ── VIRTUAL CARD
+  function showVirtualCard(name, pet, city, spotNum, photo) {
+    document.getElementById('vcNum').textContent = spotNum;
+    document.getElementById('vcName').textContent = name;
+    document.getElementById('vcDog').textContent = pet + '\'s companion';
+    document.getElementById('vcCity').textContent = city;
+
+    const avatarEl = document.getElementById('vcAvatar');
+    if (photo) {
+      avatarEl.style.padding = '0';
+      avatarEl.innerHTML = '<img class="vc-avatar-img" src="' + photo + '" alt="' + pet + '">';
+    } else {
+      avatarEl.innerHTML = '🐾';
+    }
+
+    document.getElementById('cardOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeCard() {
+    document.getElementById('cardOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+    dogPhotoDataUrl = null;
+  }
+
+  // ── SHARE
+  function shareWA() {
+    const pet = document.getElementById('vcDog').textContent.split("'")[0];
+    const num = document.getElementById('vcNum').textContent;
+    window.open('https://wa.me/?text=' + encodeURIComponent('🐾 Just secured Founding Pack Spot #' + num + ' for ' + pet + ' on MyPerro — India\'s first AI GPS dog collar! Only ' + (PACK_TOTAL - parseInt(num)) + ' spots left: https://myperro.in'), '_blank');
+  }
+  function shareTW() {
+    const pet = document.getElementById('vcDog').textContent.split("'")[0];
+    const num = document.getElementById('vcNum').textContent;
+    window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent('Just secured Founding Pack Spot #' + num + ' for ' + pet + ' on @MyPerroIn 🐾 India\'s first AI GPS dog collar — only ' + (PACK_TOTAL - parseInt(num)) + ' spots left! https://myperro.in'), '_blank');
+  }
+  function shareCopy() {
+    navigator.clipboard.writeText('https://myperro.in').then(() => alert('Link copied 🐾'));
+  }
+
+  // ── FAQ toggle
+  function toggleFaq(trigger) {
+    const item = trigger.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    // close all
+    document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+    // open clicked if it was closed
+    if (!isOpen) item.classList.add('open');
   }
 </script>
+
+<!-- ── FORM MODAL ── -->
+<div class="modal-overlay" id="formModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title-block">
+        <span class="modal-eyebrow">Founding Pack — Spot #<span id="formSpotNum">8</span></span>
+        <h3>Tell us about<br>you & your dog.</h3>
+      </div>
+      <button class="modal-close-btn" onclick="closeFormModal()">✕</button>
+    </div>
+    <div class="modal-form">
+      <div class="rank-peek" id="rankPeek"></div>
+
+      <div class="f-row">
+        <label class="f-label">Your Name</label>
+        <input type="text" class="f-in" id="fName" placeholder="Your full name">
+      </div>
+      <div class="f-row">
+        <label class="f-label">Your Dog's Name</label>
+        <input type="text" class="f-in" id="fPet" placeholder="What's your dog called?" oninput="onPetInput()">
+      </div>
+      <div class="f-2">
+        <div class="f-row" style="margin-bottom:0">
+          <label class="f-label">Email</label>
+          <input type="email" class="f-in" id="fEmail" placeholder="you@email.com">
+        </div>
+        <div class="f-row" style="margin-bottom:0">
+          <label class="f-label">Phone</label>
+          <input type="tel" class="f-in" id="fPhone" placeholder="+91 98765 43210">
+        </div>
+      </div>
+      <div class="f-row" style="margin-top:18px">
+        <label class="f-label">City</label>
+        <input type="text" class="f-in" id="fCity" placeholder="Mumbai, Bengaluru, Delhi...">
+      </div>
+      <div class="f-row">
+        <label class="f-label">Your Dog's Photo <span style="color:var(--text-muted);font-size:9px;letter-spacing:0">(shown on the Founding Wall)</span></label>
+        <label class="f-upload-label" id="uploadLabel">
+          <input type="file" accept="image/*" id="fPhoto" onchange="handlePhoto(event)">
+          <img class="f-upload-preview" id="photoPreview" src="" alt="Dog photo">
+          <span class="f-upload-icon" id="uploadIcon">🐾</span>
+          <span class="f-upload-text" id="uploadText"><strong>Click to upload</strong> or drag your dog's photo here<br>JPG, PNG — shown on the Founding Wall</span>
+        </label>
+      </div>
+
+      <!-- Razorpay: replace onSubmitForm with Razorpay payment init, call showVirtualCard() on success -->
+      <button class="f-submit" onclick="onSubmitForm()">Secure My Spot — Pay ₹500 →</button>
+      <p class="f-guarantee">🔒 &nbsp;Fully refundable · Secure via Razorpay</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── VIRTUAL MEMBERSHIP CARD ── -->
+<div class="card-overlay" id="cardOverlay">
+  <div class="card-wrapper">
+    <div class="v-card" id="vCard">
+      <div class="vc-top">
+        <span class="vc-logo">My<span>Perro</span></span>
+        <span class="vc-badge">Founding Pack</span>
+      </div>
+      <div class="vc-mid">
+        <div class="vc-avatar" id="vcAvatar">🐾</div>
+        <div class="vc-info">
+          <div class="vc-number">#<span id="vcNum">8</span></div>
+          <div class="vc-member-name" id="vcName">—</div>
+          <div class="vc-dog-name" id="vcDog">— 's dog</div>
+        </div>
+      </div>
+      <div class="vc-bottom">
+        <div class="vc-perks">
+          <div class="vc-perk">Price locked at <span>₹5,999</span></div>
+          <div class="vc-perk">Lifetime premium <span>included</span></div>
+          <div class="vc-perk">Ships <span>April 2026</span></div>
+        </div>
+        <div class="vc-city">
+          <span id="vcCity">India</span>
+          <strong>myperro.in</strong>
+        </div>
+      </div>
+    </div>
+    <div class="card-actions">
+      <span class="card-actions-title">Share your founding membership</span>
+      <div class="card-share-btns">
+        <button class="share-btn wa" onclick="shareWA()">WhatsApp</button>
+        <button class="share-btn tw" onclick="shareTW()">X / Twitter</button>
+        <button class="share-btn cp" onclick="shareCopy()">Copy Link</button>
+      </div>
+      <button class="card-close" onclick="closeCard()">← Back to MyPerro</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
